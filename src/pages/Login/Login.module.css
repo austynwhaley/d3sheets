@@ -1,0 +1,42 @@
+/* Login.module.css */
+.pageContainer {
+  background-image: url("../../images/d3logo.png");
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: left center; 
+  background-color: black; 
+  height: 100vh; 
+  display: flex; 
+  align-items: center; 
+  justify-content: right;
+  padding-right: 300px;
+}
+
+.loginForm {
+  width: 20%;
+  background-color: #222529;
+  padding: 20px;
+  border-radius: 15px;
+  color: aliceblue;
+}
+
+.title {
+  color: white;
+}
+
+.email, .password, .techDesc {
+  margin-top: 12px;
+}
+
+/* Add media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .pageContainer {
+    justify-content: center; /* Center content horizontally */
+    padding-right: 0; /* Remove right padding */
+  }
+
+  .loginForm {
+    width: 100%; /* Adjust width for smaller screens */
+    max-width: 400px; /* Set maximum width */
+  }
+}
