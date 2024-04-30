@@ -24,7 +24,7 @@
   color: white;
 }
 
-.email, .password, .confirmPassword, .login, .techDesc {
+.email, .password, .confirmPassword, .submit, .techDesc {
   margin-top: 12px;
 }
 

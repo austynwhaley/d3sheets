@@ -3,6 +3,7 @@ import styles from './Login.module.css';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Login: React.FC = () => {
     const [signup, setSignUp] = useState(false);
@@ -22,11 +23,37 @@ const Login: React.FC = () => {
         setLastName('');
     };
 
+    const newUser = {
+        firstName,
+        lastName,
+        email,
+        password
+    };
+
+    const createUser = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // Prevent default form submission behavior
+    
+        try {
+            const newUser = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password
+            };
+    
+            const response = await axios.post('http://localhost:4000/users', newUser);
+            console.log(response);
+        } catch (error) {
+            console.error('Error creating user:', error);
+        }
+    };
+    
+
     return (
         <div className={`${styles.pageContainer}`}>
             <div className={`loginForm ${styles.loginForm}`}>
                 <h1 className='header'>{signup ? 'Sign Up' : 'Login'}</h1>
-                <form>
+                <form onSubmit={createUser}>
                     {signup && (
                         <>
                             <div className={`firstName ${styles.firstName}`}>
@@ -86,9 +113,9 @@ const Login: React.FC = () => {
                         />
                     </div>
                     )}
-                    <Link to="/">
-                        <Button className={`login ${styles.login}`} variant='warning'>Login</Button>
-                    </Link>
+
+                    <Button className={`submit ${styles.submit}`} variant='warning' type='submit'>{!signup ? 'Login' : 'Join'}</Button>
+                    
                     <Button className={`signup ${styles.signup} btn btn-primary btn-sm`} variant='primary' onClick={handleSignup}>
                         {!signup ? 'Sign up' : 'Sign in'}
                     </Button>

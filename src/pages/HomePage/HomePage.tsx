@@ -25,8 +25,7 @@ const HomePage: React.FC = () => {
       <ul>
           {users.map((user, index) => (
             <>
-              <li key={index}>{user.name}</li>
-              <li key={index}>{user.email}</li>
+              <li key={index}>Name :{user.name} Email: {user.email}</li>
             </>
                     
           ))}
