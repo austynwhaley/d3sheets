@@ -1,4 +1,4 @@
-/* Login.module.css */
+
 .pageContainer {
   background-image: url("../../images/d3logo.png");
   background-size: contain; 
@@ -24,19 +24,24 @@
   color: white;
 }
 
-.email, .password, .techDesc {
+.email, .password, .confirmPassword, .login, .techDesc {
   margin-top: 12px;
 }
 
-/* Add media query for smaller screens */
+.signup{
+  margin-top: 18px;
+  float: right;
+}
+
+
 @media screen and (max-width: 768px) {
   .pageContainer {
-    justify-content: center; /* Center content horizontally */
-    padding-right: 0; /* Remove right padding */
+    justify-content: center;
+    padding-right: 0; 
   }
 
   .loginForm {
-    width: 100%; /* Adjust width for smaller screens */
-    max-width: 400px; /* Set maximum width */
+    width: 100%; 
+    max-width: 400px; 
   }
 }
