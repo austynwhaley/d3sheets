@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import NavBar from '../../components/NavBar/Navbar';
 import styles from './HomePage.module.css';
 import axios from 'axios';
 
@@ -19,19 +20,22 @@ const HomePage: React.FC = () => {
         fetchUsers();
     }, []);
   return (
-  <div className={styles.pageContainer}>
-    <div className={styles.container}>
-      <h1 > DND Worksheet </h1>
-      <ul>
-          {users.map((user, index) => (
-            <>
-              <li key={index}>Name :{user.name} Email: {user.email}</li>
-            </>
-                    
-          ))}
-      </ul>
+   <>
+    <NavBar/>
+    <div className={styles.pageContainer}>
+      <div className={styles.container}>
+        <h1 > DND Worksheet </h1>
+        <ul>
+            {users.map((user, index) => (
+              <>
+                <li key={index}>Name: {user.firstName} {user.lastName} Email: {user.email}</li>
+              </>
+                      
+            ))}
+        </ul>
+      </div>
     </div>
-  </div>
+   </>
   );
 }
 

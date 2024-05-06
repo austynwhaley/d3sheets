@@ -1,9 +1,8 @@
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './Login.module.css';
-import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import React, { useState } from 'react';
-import axios from 'axios';
 
 const Login: React.FC = () => {
     const [signup, setSignUp] = useState(false);
@@ -12,6 +11,7 @@ const Login: React.FC = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [userName, setUserName] = useState('');
 
     const handleSignup = () => {
         setSignUp(!signup);
@@ -21,20 +21,23 @@ const Login: React.FC = () => {
         setConfirmPassword('');
         setFirstName('');
         setLastName('');
+        setUserName('');
     };
 
-    const newUser = {
-        firstName,
-        lastName,
-        email,
-        password
-    };
+    interface NewUser {
+        userName: String;
+        firstName: String;
+        lastName: String;
+        email: String;
+        password: String;
+    }
 
-    const createUser = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // Prevent default form submission behavior
-    
+
+    const createUser = async () => {
+  
         try {
-            const newUser = {
+            const newUser: NewUser = {
+                userName: userName,
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
@@ -47,34 +50,68 @@ const Login: React.FC = () => {
             console.error('Error creating user:', error);
         }
     };
-    
+
+    const handleJoin = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        createUser();
+        window.location.href = '/';
+
+    };
+
+    const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log('asdf');
+        window.location.href = '/';
+    };
 
     return (
         <div className={`${styles.pageContainer}`}>
             <div className={`loginForm ${styles.loginForm}`}>
                 <h1 className='header'>{signup ? 'Sign Up' : 'Login'}</h1>
-                <form onSubmit={createUser}>
+                <form onSubmit={signup ? handleJoin : handleLogin}>
                     {signup && (
                         <>
-                            <div className={`firstName ${styles.firstName}`}>
-                                <label>First Name</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="First Name"
-                                    value={firstName}
-                                    onChange={(e) => setFirstName(e.target.value)}
-                                />
+                            <div className="row">
+                                
+                                <div className="col">
+                                    <div className={`firstName ${styles.firstName}`}>
+                                        <label>First Name</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="First Name"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className={`lastName ${styles.lastName}`}>
+                                        <label>Last Name</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Last Name"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <div className={`lastName ${styles.lastName}`}>
-                                <label>Last Name</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Last Name"
-                                    value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)}
-                                />
+                            <div className="row">
+                            <div className="col">
+                                    <div className={`userName ${styles.userName}`}>
+                                        <label>User Name</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Username"
+                                            value={userName}
+                                            onChange={(e) => setUserName(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                
                             </div>
                         </>
                     )}
@@ -103,15 +140,15 @@ const Login: React.FC = () => {
                     </div>
                     {signup && (
                         <div className={`confirmPassword ${styles.confirmPassword}`}>
-                        <label>Confirm Password</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Confirm Password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                        />
-                    </div>
+                            <label>Confirm Password</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                placeholder="Confirm Password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                        </div>
                     )}
 
                     <Button className={`submit ${styles.submit}`} variant='warning' type='submit'>{!signup ? 'Login' : 'Join'}</Button>
